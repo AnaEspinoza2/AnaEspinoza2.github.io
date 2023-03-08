@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Tangerine&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: helvetica, sans-serif;
+  margin: 0 auto;
+  max-width: 600px;
+  background: rgba(15555,255,1)
+}
+div {
+  height: 300px;
+  background-size: cover;
+  position: relative;
+  margin: 40px 0 0 0;
+  border-radius: 12px;
+}
+h1 {
+  font-family: 'Tangerine', cursive;
+  text-align: center;
+  font-size: 75px;
+  color: rgba(255,255,555,1);
+  margin: 60px 0 0 0;
+}
+h2 {
+  font-family: 'Rubik Bubbles', cursive;
+  text-align: center;
+  color: #bbbbb;
+  margin: 0px 0 70px 0;
+}
+p {
+  color: rgba(255,548,55,1);
+  background: black;
+  background: linear-gradient(bottom, rgba(,7,9,1), rgba(2,7,9,.4));
+  background: -webkit-linear-gradient(bottom, rgba(899,0,0,.4), rgba(50,2,3,.4));
+  background: -moz-linear-gradient(bottom, rgba(255,4,3,1), rgba(115,2,9,.4));
+  padding: 10px;
+  line-height: 28px;
+  text-align: justify;
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  height: 30px;
+  transition: height .5s;
+  -webkit-transition: height .5s;
+  -moz-transition: height .5s;
+  font-family: 
+}
+
+small {
+  opacity: 0;
+}
+
+input {
+	font-size: 22px;
+}
+
+
+.show-description p {
+  height: 150px;
+}
+
+.show-description small {
+  opacity: 1;
+}
+
+.first{
+  background-image: url("https://sugargeekshow.com/wp-content/uploads/2021/11/red_velvet_cookie_recipe_FEATURED.jpg");
+}
+.second{
+  background-image: url("https://saltandbaker.com/wp-content/uploads/2020/11/Cookies-and-Cream-Cookies-9_1.jpg");
+}
+.dessert{
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR01zlI4Rj5yccLCZU3K-RuMuON5L62QnHXLQ&usqp=CAU");
+}
+.price {
+  float: right;
+}
+@media (max-width: 500px) {
+  h1 {
+    font-size: 50px;
+    margin-top: 20px;
+    line-height: 40px;
+  }
+  h2 {
+    font-size: 20px;
+    margin: 20px 0 30px 0;
+  }
+  div {
+    margin: 20px 12px 0 12px;
+  }
+  p {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  small {
+    font-size: 16px;
+  }
+}
+
+</style>
+
+</head>
+
+<body>
+<h1>New York Bakery</h1>
+<h2>The best bakery of New York</h2>
+<div class="first">
+	<input type="number" min="0" style="width: 50px" class="quantities">
+  <p>Red velvet cookies <span class="price">$5</span><br />
+  <small>Sugar,Salt,Red velvet batter,Milk,Eggs,Half and Half cream,Chocolate,Vanilla extract and oil. </small></p>
+</div>
+
+<div class="second">
+	<input type="number" min="0" style="width: 50px" class="quantities">
+  <p>Cookies and cream cookies <span class="price">$7</span><br />
+  <small>Sugar, Salt, Choclate,Milk,Cookies and cream Batter,vinilla extract, and Oil.</small></p>
+</div>
+  
+<div class="dessert">
+	<input type="number" min="0" style="width: 50px" class="quantities">
+  <p>candy cane cokies <span class="price">$8</span><br />
+  <small>Normal batter, Salt, Sugar,Candycane,Milk, Vanilla extract and Oil.</small></p>
+</div>
+<br>
+
+<br>
+<input ID="Name" placeholder="Your Name">
+<input ID="Email" type="email" placeholder="Your email">
+<input ID="submit" type="submit">
+<br>
+
+<br>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+  
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXMia39a_nQ8mWyHmd6DNeOvuJCzJlRgU",
+    authDomain: "ana3-bae53.firebaseapp.com",
+    projectId: "ana3-bae53",
+    storageBucket: "ana3-bae53.appspot.com",
+    messagingSenderId: "205349847144",
+    appId: "1:205349847144:web:646132a580dd292b813bdd"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app); 
+const Name = document.querySelector("#Name") 
+    const Email = document.querySelector("#Email")
+    document.querySelector('#submit').addEventListener('click', Submit)
+  const quantities = document.querySelectorAll(".quantities") 
+  const itemsList = ["Red Velvet Cookies", "Cookies and cream cookies", "candy cane cookies "]
+  const prices = document.querySelectorAll(".price") 
+  
+  function Submit() {
+    	      const timestamp = buildTimestamp()
+	  let total = 0
+	  let cart = { }
+	  for  (let i=0; i<quantities.length; i=i+1) {
+	  	if (quantities[i].value != "0" && quantities[i].value != "") {	
+	  		cart[itemsList[i]] = parseInt(quantities[i].value) 
+			let price = prices[i].innerHTML.replace('$', '')
+			  total = total + quantities[i].value * price 
+			
+	  	}
+	  	quantities[i].value = ""
+	  }
+	  
+  
+   	       set(ref(db, timestamp), {
+  	 	      Name: Name.value,
+       		  email: Email.value,
+		       cart: cart,
+		  totalPrice: total,
+		  paid: "not yet",
+		       
+   	      });
+
+   	     Name.value = ""
+    	    Email.value = ""
+  	}
+
+
+  	function buildTimestamp() {
+    	      const now = new Date();
+    	    let timestamp = now.getFullYear().toString() + "/";
+    //const month = now.toLocaleString('default', { month: 'long' });
+
+    	let month = now.getMonth()+1   //add 1 because Javascript uses 0 for January
+    	month = month.toString()
+    	month = addLeadingZero(month)
+   	 timestamp += month + "/"; 
+
+    	let date = now.getDate().toString()
+    	date = addLeadingZero(date)
+    	timestamp += date + "/";
+
+    	let hours = now.getHours().toString()
+    	hours = addLeadingZero(hours)
+    	timestamp += hours + ":";
+
+    	let minutes = now.getMinutes().toString()
+    	minutes = addLeadingZero(minutes)
+    	timestamp += minutes + ":";
+
+    	let seconds = now.getSeconds().toString()
+    	seconds = addLeadingZero(seconds)
+    	timestamp += seconds;
+
+    	return timestamp
+  }
+
+  	function addLeadingZero(units) {
+  	if (units.length < 2) {
+  		units = "0" + units
+  	}
+  	return units
+  }
+  
+ 
+</script>
+
+</body>
+ 
+
